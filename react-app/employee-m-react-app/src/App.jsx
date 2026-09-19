@@ -1,13 +1,13 @@
 import { useState } from 'react'
-import './App.css'
-import Employees from './employee'
+// import './App.css'
+import EmployeesList from './components/EmployeeListComponent'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-    <Employees/>
+    <EmployeesList/>
     </>
   )
 }

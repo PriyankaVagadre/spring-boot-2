@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { createEmployee } from '../services/EmployeeService';
 
 function EmployeeComponent() {
  
@@ -9,7 +10,27 @@ function EmployeeComponent() {
     const handleSubmit = (e) => {
         e.preventDefault();
         // Logic to submit the form data
+
+        const employeeData = {
+            firstName,
+            lastName,
+            email
+        };
         console.log('Form submitted:', { firstName, lastName, email });
+
+        createEmployee(employeeData)
+            .then(response => {
+                console.log('Employee created successfully:', response.data);
+                // Reset form fields after successful submission
+                setFirstName('');
+                setLastName('');
+                setEmail('');
+            })
+            .catch(error => {
+                console.error('Error creating employee:', error);
+            });
+
+
     }
 
     // const getFirstName = (e) => {
@@ -23,12 +44,6 @@ function EmployeeComponent() {
     // const getEmail = (e) => {
     //     setEmail(e.target.value);
     // }
-
-    useEffect(() => {
-        createEmployee().th
-        // This effect runs when the component mounts
-        console.log('EmployeeComponent mounted');
-    }, []);
 
   return (
     <>

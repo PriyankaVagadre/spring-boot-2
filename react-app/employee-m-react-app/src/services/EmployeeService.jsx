@@ -14,4 +14,6 @@ export const getEmployeeById = (employeeId) => {
     return axios.get(`${EMPLOYEE_API_BASE_URL}/${employeeId}`);
 }
 
-
+export const updateEmployee = (employeeId, employee) => {
+    return axios.put(`${EMPLOYEE_API_BASE_URL}/${employeeId}`, employee);
+}

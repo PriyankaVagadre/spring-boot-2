@@ -73,14 +73,14 @@ function EmployeeComponent() {
 
    function setPageTitle(){
     if(id){
-       const getEmployee = getEmployeeById(id).then(response => {
+       getEmployeeById(id).then(response => {
         setFirstName(response.data.firstName);
         setLastName(response.data.lastName);
         setEmail(response.data.email);
        }).catch(error => {
         console.error('Error fetching employee:', error);
        });
-    
+           
        return <h1 className="text-center">Update Employee</h1>
     }else{
        return <h1 className="text-center">Add Employee</h1>

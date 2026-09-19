@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { createEmployee, getEmployeeById } from '../services/EmployeeService';
+import { createEmployee, getEmployeeById, updateEmployee } from '../services/EmployeeService';
 import { useNavigate ,useParams} from 'react-router-dom';
 
 function EmployeeComponent() {
@@ -19,31 +19,41 @@ function EmployeeComponent() {
     const {id} = useParams();
 
     const handleSubmit = (e) => {
-        e.preventDefault();
-
-        const employeeData = {
-            firstName,
-            lastName,
-            email
-        };
-        console.log('Form submitted:', { firstName, lastName, email });
 
         if (validateForm()) {
-        createEmployee(employeeData)
-            .then(response => {
-                console.log('Employee created successfully:', response.data);
-                // Reset form fields after successful submission
-                setFirstName('');
-                setLastName('');
-                setEmail('');
-            })
-            .catch(error => {
-                console.error('Error creating employee:', error);
-            });
 
-            // navigate('/'); // Navigate back to the employee list after submission
+            const employeeData = {
+                firstName,
+                lastName,
+                email
+            };
+
+            if(id){
+                updateEmployee(id, { firstName, lastName, email })
+                    .then(response => {
+                        console.log('Employee updated successfully:', response.data);
+                        navigate('/'); // Navigate back to the employee list after submission
+                    })
+                    .catch(error => {
+                        console.error('Error updating employee:', error);
+                    });
+            }
+            else{
+                createEmployee(employeeData)
+                .then(response => {
+                    console.log('Employee created successfully:', response.data);
+                    // Reset form fields after successful submission
+                    setFirstName('');
+                    setLastName('');
+                    setEmail('');
+                    navigate('/'); // Navigate back to the employee list after submission
+                })
+                .catch(error => {
+                    console.error('Error creating employee:', error);
+                });
             }
         }
+}
 
     function validateForm() {
         let isValid = true;
@@ -73,20 +83,22 @@ function EmployeeComponent() {
 
    function setPageTitle(){
     if(id){
-       getEmployeeById(id).then(response => {
+       return <h1 className="text-center">Update Employee</h1>
+    }else{
+       return <h1 className="text-center">Add Employee</h1>
+    }
+   }
+
+   useEffect(() => {
+    getEmployeeById(id).then(response => {
         setFirstName(response.data.firstName);
         setLastName(response.data.lastName);
         setEmail(response.data.email);
        }).catch(error => {
         console.error('Error fetching employee:', error);
        });
-           
-       return <h1 className="text-center">Update Employee</h1>
-    }else{
-       return <h1 className="text-center">Add Employee</h1>
-    }
+   }, []);
 
-   }
 
   return (
     <>
@@ -114,7 +126,7 @@ function EmployeeComponent() {
                 onChange={(e)=> setEmail(e.target.value)}  placeholder="Enter email" />
                 {error.email && <div className="invalid-feedback">{error.email}</div>}
             </div>
-            <button type="submit" className="btn btn-primary" onClick={handleSubmit}>Submit</button>
+            <button type="button" className="btn btn-primary" onClick={handleSubmit}>Submit</button>
         </form>
     </div>  
     </>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 function EmployeeComponent() {
  
@@ -12,17 +12,23 @@ function EmployeeComponent() {
         console.log('Form submitted:', { firstName, lastName, email });
     }
 
-    const getFirstName = (e) => {
-        setFirstName(e.target.value);
-    }
+    // const getFirstName = (e) => {
+    //     setFirstName(e.target.value);
+    // }
 
-    const getLastName = (e) => {
-        setLastName(e.target.value);
-    }
+    // const getLastName = (e) => {
+    //     setLastName(e.target.value);
+    // }
     
-    const getEmail = (e) => {
-        setEmail(e.target.value);
-    }
+    // const getEmail = (e) => {
+    //     setEmail(e.target.value);
+    // }
+
+    useEffect(() => {
+        createEmployee().th
+        // This effect runs when the component mounts
+        console.log('EmployeeComponent mounted');
+    }, []);
 
   return (
     <>
@@ -31,15 +37,18 @@ function EmployeeComponent() {
         <form>
             <div className="form-group">
                 <label className='text-left'>First Name</label>
-                <input type="text" name='firstName' value={firstName} onChange={getFirstName} className="form-control" placeholder="Enter first name" />
+                <input type="text" name='firstName' value={firstName} 
+                onChange={(e)=> setFirstName(e.target.value)} className="form-control" placeholder="Enter first name" />
             </div>
             <div className="form-group">
                 <label>Last Name</label>
-                <input type="text" name='lastName' value={lastName} onChange={getLastName} className="form-control" placeholder="Enter last name" />
+                <input type="text" name='lastName' value={lastName} 
+                onChange={(e)=> setLastName(e.target.value)} className="form-control" placeholder="Enter last name" />
             </div>
             <div className="form-group">
                 <label>Email address</label>
-                <input type="email" name='email' value={email} onChange={getEmail} className="form-control" placeholder="Enter email" />
+                <input type="email" name='email' value={email} 
+                onChange={(e)=> setEmail(e.target.value)} className="form-control" placeholder="Enter email" />
             </div>
             <button type="submit" className="btn btn-primary" onClick={handleSubmit}>Submit</button>
         </form>

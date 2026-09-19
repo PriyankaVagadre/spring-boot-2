@@ -97,7 +97,7 @@ function EmployeeComponent() {
        }).catch(error => {
         console.error('Error fetching employee:', error);
        });
-   }, []);
+   }, [id]);
 
 
   return (

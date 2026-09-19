@@ -90,14 +90,17 @@ function EmployeeComponent() {
    }
 
    useEffect(() => {
-    getEmployeeById(id).then(response => {
-        setFirstName(response.data.firstName);
-        setLastName(response.data.lastName);
-        setEmail(response.data.email);
-       }).catch(error => {
-        console.error('Error fetching employee:', error);
-       });
-   }, [id]);
+    if(id){
+        getEmployeeById(id).then(response => {
+            setFirstName(response.data.firstName);
+            setLastName(response.data.lastName);
+            setEmail(response.data.email);
+           }).catch(error => {
+            console.error('Error fetching employee:', error);
+           });
+    }
+   
+   }, []);
 
 
   return (

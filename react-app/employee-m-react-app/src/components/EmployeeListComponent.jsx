@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react';
-import { getEmployees, updateEmployee } from '../services/EmployeeService';
+import { deleteEmployee, getEmployees, updateEmployee } from '../services/EmployeeService';
 import { useNavigate } from 'react-router-dom';
 
 function EmployeesList() {
@@ -22,8 +22,20 @@ function EmployeesList() {
         navigate('/add');
     }
 
-    function updateEmployee(employeeId) {
+    function updateEmployeeHandler(employeeId) {
         navigate(`/edit/${employeeId}`);
+    }
+
+    function deleteEmployeeById(employeeId) {
+        deleteEmployee(employeeId)
+            .then(response => {
+                console.log('Employee deleted successfully:', response.data);
+                // Update the employees state to remove the deleted employee
+                setEmployees(employees.filter(employee => employee.id !== employeeId));
+            })
+            .catch(error => {
+                console.error('Error deleting employee:', error);
+            });
     }
 
     return(
@@ -39,7 +51,8 @@ function EmployeesList() {
                                     <div className="card-body">
                                         <h5 className="card-title">{employee.firstName} {employee.lastName}</h5>
                                         <p className="card-text">{employee.email}</p>
-                                        <button onClick={()=> updateEmployee(employee.id)} className="btn btn-primary">Edit</button>
+                                        <button onClick={()=> updateEmployeeHandler(employee.id)} className="btn btn-primary">Edit</button>
+                                        <button className="btn btn-danger" onClick={()=> deleteEmployeeById(employee.id)}>Delete</button>
                                     </div>
                                 </div>
                             ))

@@ -16,6 +16,7 @@ function EmployeesList() {
         <div>
             <h1 className="text-left">Employee Component</h1>
             <div className="container">
+                <button className="btn btn-primary mb-2">Add Employee</button>
                 <div className="row">
                     <div className="col-md-4">
                         {

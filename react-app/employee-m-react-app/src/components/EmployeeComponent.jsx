@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { createEmployee } from '../services/EmployeeService';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate ,useParams} from 'react-router-dom';
 
 function EmployeeComponent() {
  
@@ -15,6 +15,8 @@ function EmployeeComponent() {
     });
 
     const navigate = useNavigate();
+
+    const {id} = useParams();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -69,10 +71,20 @@ function EmployeeComponent() {
         return isValid;
     }
 
+   function setPageTitle(){
+    if(id){
+ 
+       return <h1 className="text-center">Update Employee</h1>
+    }else{
+       return <h1 className="text-center">Add Employee</h1>
+    }
+
+   }
+
   return (
     <>
     <div className="container">
-        <h1 className="text-center">Add Employee</h1>
+        {setPageTitle()}
         <form>
             <div className="form-group">
                 <label className='text-left'>First Name</label>

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react';
-import { getEmployees } from '../services/EmployeeService';
+import { getEmployees, updateEmployee } from '../services/EmployeeService';
 import { useNavigate } from 'react-router-dom';
 
 function EmployeesList() {
@@ -21,6 +21,11 @@ function EmployeesList() {
         console.log('Add Employee button clicked');
         navigate('/add');
     }
+
+    function updateEmployee(employeeId) {
+        navigate(`/edit/${employeeId}`);
+    }
+
     return(
         <div>
             <h1 className="text-left">Employee Component</h1>
@@ -34,6 +39,7 @@ function EmployeesList() {
                                     <div className="card-body">
                                         <h5 className="card-title">{employee.firstName} {employee.lastName}</h5>
                                         <p className="card-text">{employee.email}</p>
+                                        <button onClick={()=> updateEmployee(employee.id)} className="btn btn-primary">Edit</button>
                                     </div>
                                 </div>
                             ))

@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react';
 import { getEmployees } from '../services/EmployeeService';
+import { useNavigate } from 'react-router-dom';
 
 function EmployeesList() {
     const [employees, setEmployees] = useState([]);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
        getEmployees().then(response => {
@@ -12,11 +15,17 @@ function EmployeesList() {
             console.error('Error fetching employees:', error);
         });
     }, []);
+
+    const addEmployee = () => {
+        // Logic to add a new employee
+        console.log('Add Employee button clicked');
+        navigate('/add');
+    }
     return(
         <div>
             <h1 className="text-left">Employee Component</h1>
             <div className="container">
-                <button className="btn btn-primary mb-2">Add Employee</button>
+                <button className="btn btn-primary mb-2" onClick={addEmployee}>Add Employee</button>
                 <div className="row">
                     <div className="col-md-4">
                         {

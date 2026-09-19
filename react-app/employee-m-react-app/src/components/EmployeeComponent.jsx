@@ -33,18 +33,6 @@ function EmployeeComponent() {
 
     }
 
-    // const getFirstName = (e) => {
-    //     setFirstName(e.target.value);
-    // }
-
-    // const getLastName = (e) => {
-    //     setLastName(e.target.value);
-    // }
-    
-    // const getEmail = (e) => {
-    //     setEmail(e.target.value);
-    // }
-
   return (
     <>
     <div className="container">
